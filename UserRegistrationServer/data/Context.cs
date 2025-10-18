@@ -16,14 +16,14 @@ namespace UserRegistrationServer.data
 
             bool isTest = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Test";
             DatabaseName = isTest ? "user_registration_server_test" : "user_registration_server";
-            string user = config["Database:User"];
-            string pass = config["Database:Password"];
+            string user = config["Database:User"] ?? "root";
+            string pass = config["Database:Password"] ?? "root";
             string host = config["Database:Host"] ?? "localhost";
 
             if (isTest)
             {
-                user = config["TestDatabase:User"];
-                pass = config["TestDatabase:Password"];
+                user = config["TestDatabase:User"] ?? "root";
+                pass = config["TestDatabase:Password"] ?? "root";
                 host = config["TestDatabase:Host"] ?? "localhost";
             }
 

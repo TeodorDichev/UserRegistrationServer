@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <title>User Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Welcome, <span id="firstNameH"></span>  <span id="lastNameH"></span></h2>
+
+        <div class="columns-container">
+            <section class="profile column">
+                <h3>Your Information</h3>
+                <p><strong>First name:</strong> <span id="firstName"></span></p>
+                <p><strong>Middle name:</strong> <span id="middleName"></span></p>
+                <p><strong>Last name:</strong> <span id="lastName"></span></p>
+                <p><strong>Email:</strong> <span id="email"></span></p>
+            </section>
+
+            <section class="update-names-section column">
+                <h3>Update Information</h3>
+                <form id="updateForm">
+                    <label>First name</label>
+                    <input type="text" name="firstName">
+
+                    <label>Middle name</label>
+                    <input type="text" name="middleName">
+
+                    <label>Last name</label>
+                    <input type="text" name="lastName">
+
+                    <input type="submit" value="Update Names">
+                </form>
+            </section>
+
+            <section class="update-passwords-section column">
+                <h3>Change Password</h3>
+                <form id="passwordForm">
+
+                    <label>Current password</label>
+                    <div class="password-container">
+                        <input type="password"  id="currentPassword" name="currentPassword" required>
+                        <button type="button" class="toggle-password" data-target="currentPassword">Show</button>
+                    </div>
+
+                    <label>New password</label>
+                    <div class="password-container">
+                        <input id="newPassword" name="newPassword" type="password" required>
+                        <button type="button" class="toggle-password" data-target="newPassword">Show</button>
+                    </div>
+
+                    <label>Confirm new password</label>
+                    <div class="password-container">
+                        <input id="confirmPassword" name="confirmPassword" type="password" required>
+                        <button type="button" class="toggle-password" data-target="confirmPassword">Show</button>
+                    </div>
+
+                    <input type="submit" value="Change Password">
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Contact: <a href="mailto:teodichev@gmail.com">teodichev@gmail.com</a></p>
+    </footer>
+
+    <script src="togglePassword.js" asp-append-version="true"></script>
+    <script src="homeScripts.js" asp-append-version="true"></script>
+</body>
+</html>

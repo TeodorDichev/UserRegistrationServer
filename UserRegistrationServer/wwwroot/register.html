@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="captcha.js" asp-append-version="true"></script>
+</head>
+
+<body class="centered-page" onload="generate()">
+    <div class="container">
+        <h2>User Registration</h2>
+
+        <form id="registerForm">
+            <label for="firstName">First Name</label>
+            <input id="firstName" name="firstName" type="text" required>
+            <span class="error" id="firstNameError"></span>
+
+            <label for="middleName">Middle Name</label>
+            <input id="middleName" name="middleName" type="text">
+            <span class="error" id="middleNameError"></span>
+
+            <label for="lastName">Last Name</label>
+            <input id="lastName" name="lastName" type="text" required>
+            <span class="error" id="lastNameError"></span>
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+            <span class="error" id="emailError"></span>
+
+            <div class="password-container">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required>
+                <button type="button" class="toggle-password" data-target="password">Show</button>
+                <span class="error" id="passwordError"></span>
+            </div>
+
+            <div class="password-container">
+                <label for="confirmPassword">Confirm Password</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" required>
+                <button type="button" class="toggle-password" data-target="confirmPassword">Show</button>
+                <span class="error" id="confirmPasswordError"></span>
+            </div>
+
+            <div class="inline" style="align-items:flex-end">
+                <label for="captcha">Captcha</label>
+                <div id="user-input" class="inline">
+                    <input type="text"
+                           id="captchaSubmit"
+                           placeholder="Captcha code" />
+                </div>
+                <div id="image"
+                     class="inline"
+                     selectable="False">
+                </div>
+
+
+                <div class="inline" onclick="generate()">
+                    <i class="fas fa-sync"></i>
+                </div>
+
+                <input id="captcha" name="captcha" type="hidden" required>
+                <span class="error" id="captchaError"></span>
+            </div>
+
+            <input type="submit" value="Register" onclick="printmsg()">
+            <span class="error" id="formError"></span>
+
+        </form>
+
+        <div class="footer">
+            <p>Already have an account? <a href="/login.html">Login</a></p>
+        </div>
+    </div>
+
+    <script src="togglePassword.js" asp-append-version="true"></script>
+    <script src="registerScripts.js" asp-append-version="true"></script>
+</body>
+</html>

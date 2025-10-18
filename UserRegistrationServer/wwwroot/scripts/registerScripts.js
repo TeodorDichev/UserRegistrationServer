@@ -30,7 +30,7 @@ form.addEventListener('submit', async e => {
             if (span) span.textContent = result.Errors[field];
         }
         if (result.Message) {
-            document.getElementById('formError').textContent = result.message;
+            document.getElementById('formError').textContent = result.Message;
         }
     } else {
         document.getElementById('formError').textContent = result.Message || "Error";

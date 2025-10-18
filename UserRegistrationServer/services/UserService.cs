@@ -125,7 +125,11 @@ namespace UserRegistrationServer.services
             if (!string.IsNullOrEmpty(lastName))
                 await _repo.UpdateLastNameAsync(email, lastName);
 
-            return await _repo.GetByEmailAsync(email) ?? throw new Exception("User not found after updating names!");
+            var user = await _repo.GetByEmailAsync(email);
+            if (user == null)
+                throw new Exception("User not found when updating names!");
+
+            return user;
         }
 
         public async Task<User> UpdatePasswordAsync(Dictionary<string, string> data)
@@ -133,15 +137,21 @@ namespace UserRegistrationServer.services
             string email = data.GetValueOrDefault("email", "").Trim();
             string currentPassword = data.GetValueOrDefault("currentPassword", "");
             string newPassword = data.GetValueOrDefault("newPassword", "");
+            string confirmPassword = data.GetValueOrDefault("confirmPassword", "");
 
             var user = await _repo.GetByEmailAsync(email);
-            if (user == null || !PasswordManager.Verify(currentPassword, user.PasswordHash))
-                throw new Exception("Invalid current password");
+            if (user == null )
+                throw new Exception("User not found when updating password");
+            if(!PasswordManager.Verify(currentPassword, user.PasswordHash))
+                throw new Exception("Wrong password");
+            if(newPassword != confirmPassword)
+                throw new Exception("Passwords do not match");
 
             PasswordManager.Validate(newPassword);
 
             await _repo.UpdatePasswordAsync(email, PasswordManager.Hash(newPassword));
-            return await _repo.GetByEmailAsync(email) ?? throw new Exception("User not found after updating password!");
+
+            return user;
         }
     }
 }

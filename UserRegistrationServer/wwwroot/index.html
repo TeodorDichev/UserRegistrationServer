@@ -17,57 +17,64 @@
     </header>
 
     <main>
-        <h1>Welcome to my little project</h1>
-        <h3>EXPIRIENCE</h3>
-        <p>
-            National Olympiad of information technologies 2024<br />
-            ➢ 8th team place at the National Olympiad of information technologies in the
-            category „Distributed applications“ and 14th individual place.
-            Projects (all available on my GitHub Teodor Dichev)<br />
-            ➢ AccessManager: ASP.NET 9.0 web application developed for a private
-            business. The project was deployed and integrated in real-working
-            environment. It is my biggest project yet and it was tested with over 1000
-            active users and more than 10,000 records it some tables.<br />
-            ➢ OptimaRestaurants: The ASP.NET web application is based on Model View
-            Controller (MVC) architecture enhanced with microservices and data
-            transfer objects for better abstraction and stronger encapsulation. The
-            back- end interacts with the database by Entity Framework Core and the
-            front-end uses the Angular framework.<br />
-            ➢ SwimSet: Typical ASP.NET web application based on MVC architecture.<br />
-            ➢ Monopoly and MathTricks: C++ games built for my courses Introduction to
-            Programming and Object Orientated Programming at FMI with modular
-            architecture designed to be scalable, readable, and testable. I have used
-            numerous design patterns such as command pattern and command
-            factory.<br />
-        </p>
-        <h3>QUALIFICATIONS</h3>
-        <p>
-        Programming skills<br />
-        ➢ Overall I am familiar with concepts such as Object oriented programming,
-        Design Patters, Database First and Code First approaches, Scrum
-        methodology, Writing documentation, Concurrent programming.<br />
-        ➢ C# and more specifically frameworks for Web development like .NET,
-        ASP.NET, Razor where I have developed multiple web applications with
-        MVC+ architecture. I have experience in writing unit tests in C#,
-        implementing custom data structures, writing algorithms and modeling
-        databases by utilizing the Entity Framework Core framework and when users
-        are needed the ASP-NET Core Identity package.<br />
-        ➢ C++ where I am best experienced in creating console projects such as
-        games: MathTricks, Monopoly. Also, I solve leetcode questions in c++.<br />
-        ➢ Angular (Angular CLI 16, ngx-bootstrap 5) in combination with ASP.NET to
-        create multi-layered web application.<br />
-        ➢ SQL where I have modelled numerous databases and skillfully written many
-        queries and databases scripts.<br />
-        ➢ Haskell on a very basic level so as to learn functional programming.<br />
-        ➢ Git I have experience managing repositories, merging request and overall, I
-        know the good git practices so that I can be useful in a team project.<br />
-        ➢ JavaScript, HTML, CSS used for dynamic websites and ajax requests
-        English – C2 (CAE)<br />
-        ➢ Cambridge university: Certificate in Advanced English<br />
-        ➢ Grade: A, 204/210<br />
-        German – A2<br />
-        ➢ Logos - A2 – Leichtes Deutsch.<br />
-        </p>
+        <div class="readme">
+            <h1>UserRegistrationServer</h1>
+
+            <p>UserRegistrationServer е web client-server application, създадено без използването на каквито и да е frameworks и външни services.</p>
+
+            <h2>Технологии</h2>
+            <ul>
+                <li>C# за сървърната логика и писането на тестове</li>
+                <li>HTML, CSS, JS за клиентската част. JavaScript се използва за изпращане на request-и към сървърната част с JSON данни и за генериране на captcha</li>
+            </ul>
+
+            <h2>Структура на кода</h2>
+            <p>Приложението е разделено на 2 проекта:</p>
+            <ul>
+                <li><b>UserRegistrationServer</b> – wwwroot, data, services, repositories, тук се намира кодът на приложението</li>
+                <li><b>UserRegistrationTests</b> – тук се намират NUnit тестовете</li>
+            </ul>
+            <p>Приложението използва standard repository design pattern и многослойна архитектура. Макар да не се използват ASP.NET функционалности, системата е гъвкава и лесна за разширение.</p>
+
+            <h2>Реализация</h2>
+            <p>В <b>Program.cs</b> се стартира кодът. Определяме порт, инициализираме services и controllers. След това безкраен цикъл слуша за заявки. <b>ServeStaticFileAsync</b> връща конкретни страници с CSS и JS.</p>
+
+            <h3>/controllers</h3>
+            <ul>
+                <li><b>UserController</b> – използва <b>UserService</b> чрез Dependency Injection. Получава <code>HttpListenerContext</code>, обработва JSON заявки и връща резултати като <b>RegisterResult</b> и <b>LoginResult</b>.</li>
+            </ul>
+
+            <h3>/data</h3>
+            <ul>
+                <li><b>Context</b> – подсигурява база данни. <b>EnsureDatabaseExists</b> и <b>EnsureTablesExist</b> създават база и таблици при необходимост.</li>
+                <li><b>LoginResult, RegisterResult</b> – обекти за резултатите от login/registration.</li>
+                <li><b>User</b> – модел, който се връща на клиентската част.</li>
+            </ul>
+
+            <h3>/repositories</h3>
+            <ul>
+                <li><b>IUserRepository</b> и <b>UserRepository</b> – асинхронни операции за достъп до MySQL база. Използват параметризирани заявки за защита от SQL injection.</li>
+            </ul>
+
+            <h3>/services</h3>
+            <ul>
+                <li><b>PasswordManager</b> – хеширане на пароли с PBKDF2 и сол, валидация на пароли.</li>
+                <li><b>UserService</b> – бизнес логика и валидация, връзка между база данни и контролер.</li>
+            </ul>
+
+            <h3>/wwwroot</h3>
+            <ul>
+                <li>HTML, CSS, JS файлове. JS файловете се добавят в head или body в зависимост от нуждата да се заредят преди или след DOM.</li>
+                <li><b>/scripts</b> – всички *.js файлове за изпращане на данни, captcha и динамични UI елементи.</li>
+            </ul>
+
+            <h3>/UserRegistrationTests</h3>
+            <ul>
+                <li>МСBuild тестове</li>
+                <li>Integrated тестове за <b>UserRepository</b> с тестова MySQL база</li>
+                <li>Moq и NUnit тестове за <b>UserService</b></li>
+            </ul>
+        </div>
     </main>
 
     <footer>

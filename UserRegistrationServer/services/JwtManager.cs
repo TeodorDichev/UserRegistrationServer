@@ -30,10 +30,14 @@ namespace UserRegistrationServer.services
             return $"{header}.{payload}.{signature}";
         }
 
-        public static string? ValidateToken(string token)
+        public static string? ValidateToken(string? token)
         {
             try
             {
+                if(string.IsNullOrEmpty(token)) {
+                    return null;
+                }
+
                 var parts = token.Split('.');
                 if (parts.Length != 3) return null;
 

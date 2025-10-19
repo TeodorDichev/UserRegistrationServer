@@ -9,8 +9,8 @@ namespace UserRegistrationTests
     [TestClass]
     public class UserServiceTests
     {
-        private Mock<IUserRepository> _repoMock;
-        private UserService _service;
+        private Mock<IUserRepository> _repoMock = null!;
+        private UserService _service = null!;
 
         [TestInitialize]
         public void Setup()

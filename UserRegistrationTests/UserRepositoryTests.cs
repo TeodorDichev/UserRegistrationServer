@@ -1,19 +1,17 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using MySql.Data.MySqlClient;
 using UserRegistrationServer.data;
 using UserRegistrationServer.repositories;
-using UserRegistrationServer.services;
 
 namespace UserRegistrationTests
 {
-    
+
     // db testing repo writes in real db
     [TestClass]
     public class UserRepositoryTests
     {
-        private static UserRepository _repo;
-        private  static string _testEmail;
+        private static UserRepository _repo = null!;
+        private static string _testEmail = "test@example.com";
 
         [ClassInitialize]
         public static void ClassSetup(TestContext testContext)
@@ -24,10 +22,7 @@ namespace UserRegistrationTests
             var config = builder.Build();
 
             Context.Init(config);
-
             _repo = new UserRepository();
-            _testEmail = "test@example.com";
-
             // Ensure test user exists before running tests
             var user = new User
             {

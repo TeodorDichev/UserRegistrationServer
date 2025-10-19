@@ -19,36 +19,35 @@
     <main>
         <div class="readme">
             <h1>UserRegistrationServer</h1>
-
-            <p>UserRegistrationServer е web client-server application, създадено без използването на каквито и да е frameworks и външни services.</p>
+            <p>UserRegistrationServer е web, клиент-сървър приложение, създадено без използването на каквито и да е frameworks и външни услуги.</p>
 
             <h2>Технологии</h2>
             <ul>
-                <li>C# за сървърната логика и писането на тестове</li>
-                <li>HTML, CSS, JS за клиентската част. JavaScript се използва за изпращане на request-и към сървърната част с JSON данни и за генериране на captcha</li>
+                <li><b>C#</b> за сървърната логика и писане на тестове.</li>
+                <li><b>HTML, CSS, JS</b> за клиентската част. JavaScript се използва за изпращане на request-и към сървъра с JSON данни и за генериране на captcha.</li>
             </ul>
 
             <h2>Структура на кода</h2>
-            <p>Приложението е разделено на 2 проекта:</p>
+            <p>Приложението е разделено на два проекта:</p>
             <ul>
-                <li><b>UserRegistrationServer</b> – wwwroot, data, services, repositories, тук се намира кодът на приложението</li>
-                <li><b>UserRegistrationTests</b> – тук се намират NUnit тестовете</li>
+                <li><b>UserRegistrationServer</b> – съдържа <code>wwwroot</code>, <code>data</code>, <code>services</code>, <code>repositories</code>. Тук се намира кодът на приложението.</li>
+                <li><b>UserRegistrationTests</b> – съдържа NUnit тестовете.</li>
             </ul>
-            <p>Приложението използва standard repository design pattern и многослойна архитектура. Макар да не се използват ASP.NET функционалности, системата е гъвкава и лесна за разширение.</p>
+            <p>Приложението използва стандартен repository design pattern и многослойна архитектура. Макар да не се използват ASP.NET функционалности, системата е гъвкава и лесна за разширение.</p>
 
             <h2>Реализация</h2>
-            <p>В <b>Program.cs</b> се стартира кодът. Определяме порт, инициализираме services и controllers. След това безкраен цикъл слуша за заявки. <b>ServeStaticFileAsync</b> връща конкретни страници с CSS и JS.</p>
+            <p>В <b>Program.cs</b> се стартира кодът, указва се портът, инициализират се services и контролери. След това безкраен цикъл слуша за заявки. <b>ServeStaticFileAsync</b> връща конкретни страници с CSS и JS файловете им.</p>
 
             <h3>/controllers</h3>
             <ul>
-                <li><b>UserController</b> – използва <b>UserService</b> чрез Dependency Injection. Получава <code>HttpListenerContext</code>, обработва JSON заявки и връща резултати като <b>RegisterResult</b> и <b>LoginResult</b>.</li>
+                <li><b>UserController</b> – използва <b>UserService</b> чрез Dependency Injection. Получава <code>HttpListenerContext</code>, обработва JSON заявки и връща резултати като <b>RegisterResult</b> и <b>LoginResult</b>. Методи като <b>UpdateNames</b> и <b>UpdatePassword</b> проверяват валидността на JWT токена.</li>
             </ul>
 
             <h3>/data</h3>
             <ul>
-                <li><b>Context</b> – подсигурява база данни. <b>EnsureDatabaseExists</b> и <b>EnsureTablesExist</b> създават база и таблици при необходимост.</li>
-                <li><b>LoginResult, RegisterResult</b> – обекти за резултатите от login/registration.</li>
-                <li><b>User</b> – модел, който се връща на клиентската част.</li>
+                <li><b>Context</b> – подсигурява база данни, създава база и таблици при нужда. Статичният метод <code>Init</code> позволява работа с тестова база за интеграционни тестове.</li>
+                <li><b>LoginResult, RegisterResult</b> – обекти за резултатите от регистрация и вход.</li>
+                <li><b>User</b> – модел на потребител, връщан на клиентската част.</li>
             </ul>
 
             <h3>/repositories</h3>
@@ -58,21 +57,22 @@
 
             <h3>/services</h3>
             <ul>
-                <li><b>PasswordManager</b> – хеширане на пароли с PBKDF2 и сол, валидация на пароли.</li>
-                <li><b>UserService</b> – бизнес логика и валидация, връзка между база данни и контролер.</li>
+                <li><b>PasswordManager</b> – хеширане и солиране на пароли с PBKDF2 и валидация.</li>
+                <li><b>JwtManager</b> – генерира и валидира JWT токени за автентикация на потребители, използвайки секретен ключ от user.secrets.</li>
+                <li><b>UserService</b> – бизнес логика и валидация между repository и контролер.</li>
             </ul>
 
             <h3>/wwwroot</h3>
             <ul>
-                <li>HTML, CSS, JS файлове. JS файловете се добавят в head или body в зависимост от нуждата да се заредят преди или след DOM.</li>
+                <li>HTML, CSS и JS файлове. JS файловете се добавят в <code>head</code> или <code>body</code> в зависимост от нуждата да се заредят преди или след DOM.</li>
                 <li><b>/scripts</b> – всички *.js файлове за изпращане на данни, captcha и динамични UI елементи.</li>
             </ul>
 
             <h3>/UserRegistrationTests</h3>
             <ul>
-                <li>МСBuild тестове</li>
-                <li>Integrated тестове за <b>UserRepository</b> с тестова MySQL база</li>
-                <li>Moq и NUnit тестове за <b>UserService</b></li>
+                <li>MSBuild тестове.</li>
+                <li>Интеграционни тестове за <b>UserRepository</b> с тестова MySQL база.</li>
+                <li>Moq и NUnit тестове за <b>UserService</b>, <b>PasswordManager</b> и <b>JwtManager</b>.</li>
             </ul>
         </div>
     </main>

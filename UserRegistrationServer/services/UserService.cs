@@ -94,7 +94,6 @@ namespace UserRegistrationServer.services
                 return result;
             }
 
-
             result.Success = true;
             result.Message = "Login successful";
             result.User = new User

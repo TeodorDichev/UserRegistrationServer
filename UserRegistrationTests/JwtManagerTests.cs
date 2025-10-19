@@ -18,7 +18,7 @@ namespace UserRegistrationTests
         }
 
         [TestMethod]
-        public void GenerateAndValidateToken_ShouldReturnEmail()
+        public void GenerateAndValidateTokenShouldReturnEmail()
         {
             string token = JwtManager.GenerateToken(_testEmail, 1);
             string? email = JwtManager.ValidateToken(token);
@@ -26,7 +26,7 @@ namespace UserRegistrationTests
         }
 
         [TestMethod]
-        public void ValidateToken_ShouldReturnNullIfExpired()
+        public void ValidateTokenShouldReturnNullIfExpired()
         {
             string token = JwtManager.GenerateToken(_testEmail, -1);
             string? email = JwtManager.ValidateToken(token);
@@ -34,7 +34,7 @@ namespace UserRegistrationTests
         }
 
         [TestMethod]
-        public void ValidateToken_ShouldReturnNullIfTampered()
+        public void ValidateTokenShouldReturnNullIfTampered()
         {
             string token = JwtManager.GenerateToken(_testEmail);
             string tampered = token.Replace('a', 'b');

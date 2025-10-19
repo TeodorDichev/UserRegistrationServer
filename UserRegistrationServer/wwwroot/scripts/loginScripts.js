@@ -18,7 +18,6 @@ form.addEventListener('submit', async e => {
     const result = await res.json();
 
     if (res.status === 200 && result.Success) {
-        localStorage.setItem('user', JSON.stringify(result.User));
         window.location.href = '/home.html';
     } else {
         document.getElementById('formError').textContent = result.Message || 'Login failed';

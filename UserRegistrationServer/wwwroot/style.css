@@ -1,5 +1,4 @@
-﻿/* Global defaults */
-html, body {
+﻿html, body {
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -7,7 +6,6 @@ html, body {
     flex-direction: column;
 }
 
-/* Header and footer */
 header, footer {
     background-color: #333;
     color: white;
@@ -21,7 +19,6 @@ header, footer {
         text-decoration: none;
     }
 
-/* Main content fills available space */
 main {
     flex: 1;
     padding: 2em;
@@ -34,7 +31,6 @@ footer {
     margin-top: auto;
 }
 
-/* Form pages only */
 .centered-page {
     background-color: #f2f2f2;
     display: flex;

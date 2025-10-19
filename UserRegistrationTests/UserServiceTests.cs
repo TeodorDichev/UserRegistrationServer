@@ -180,7 +180,8 @@ namespace UserRegistrationTests
             {
                 { "email", "test@example.com" },
                 { "currentPassword", "OldPass123!" },
-                { "newPassword", "NewPass123!" }
+                { "newPassword", "NewPass123!" },
+                { "confirmPassword", "NewPass123!" }
             };
 
             var result = await _service.UpdatePasswordAsync(data);

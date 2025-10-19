@@ -153,5 +153,14 @@ namespace UserRegistrationServer.services
 
             return user;
         }
+
+        internal async Task<User> GetUserByEmailAsync(string email)
+        {
+            var user = await _repo.GetByEmailAsync(email);
+            if (user == null)
+                throw new Exception("User not found when updating names!");
+
+            return user;
+        }
     }
 }

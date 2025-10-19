@@ -1,6 +1,9 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
+using MySql.Data.MySqlClient;
 using UserRegistrationServer.data;
 using UserRegistrationServer.repositories;
+using UserRegistrationServer.services;
 
 namespace UserRegistrationTests
 {
@@ -16,6 +19,11 @@ namespace UserRegistrationTests
         public static void ClassSetup(TestContext testContext)
         {
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
+
+            var builder = new ConfigurationBuilder().AddUserSecrets<UserRegistrationServer.Program>();
+            var config = builder.Build();
+
+            Context.Init(config);
 
             _repo = new UserRepository();
             _testEmail = "test@example.com";
@@ -36,7 +44,7 @@ namespace UserRegistrationTests
         [TestMethod]
         public async Task AddAsyncShouldInsertAndRetrieveUser()
         {
-            string email = "testadd1@gmail.com";
+            string email = "testadd2@gmail.com";
             var user = new User
             {
                 FirstName = "test",

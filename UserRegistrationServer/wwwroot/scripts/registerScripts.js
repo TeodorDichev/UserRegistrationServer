@@ -3,6 +3,7 @@
 form.addEventListener('submit', async e => {
     e.preventDefault();
     document.querySelectorAll('.error').forEach(span => span.textContent = '');
+
     const data = {
         firstName: form.firstName.value,
         middleName: form.middleName.value,
@@ -22,7 +23,6 @@ form.addEventListener('submit', async e => {
     const result = await res.json();
 
     if (res.status === 200 && result.Success) {
-        localStorage.setItem('user', JSON.stringify(result.User));
         window.location.href = '/home.html';
     } else if (result.Errors) {
         for (const field in result.Errors) {

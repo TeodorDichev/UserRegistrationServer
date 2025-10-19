@@ -5,27 +5,17 @@ namespace UserRegistrationServer.data
 {
     public class Context
     {
-        private static readonly string ServerConnectionString;
-        private static readonly string DatabaseName = "user_registration_server";
-        private static readonly string ConnectionString;
+        private static string ServerConnectionString = string.Empty;
+        private static string DatabaseName = "user_registration_server";
+        private static string ConnectionString = string.Empty;
 
-        static Context()
+        public static void Init(IConfiguration config)
         {
-            var builder = new ConfigurationBuilder().AddUserSecrets<Program>();
-            var config = builder.Build();
-
             bool isTest = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Test";
             DatabaseName = isTest ? "user_registration_server_test" : "user_registration_server";
-            string user = config["Database:User"] ?? "root";
-            string pass = config["Database:Password"] ?? "root";
-            string host = config["Database:Host"] ?? "localhost";
-
-            if (isTest)
-            {
-                user = config["TestDatabase:User"] ?? "root";
-                pass = config["TestDatabase:Password"] ?? "root";
-                host = config["TestDatabase:Host"] ?? "localhost";
-            }
+            string user = isTest ? config["TestDatabase:User"] : config["Database:User"];
+            string pass = isTest ? config["TestDatabase:Password"] : config["Database:Password"];
+            string host = isTest ? config["TestDatabase:Host"] : config["Database:Host"];
 
             ServerConnectionString = $"Server={host};User={user};Password={pass};";
             ConnectionString = $"Server={host};Database={DatabaseName};User={user};Password={pass};";
